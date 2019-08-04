@@ -13,8 +13,8 @@
           <div class="ui-g-6 ui-md-3 ui-fluid">
             <label>Vencimento</label>
             <p-calendar name="vencimento" dateFormat="dd/mm/yy"
-                        [inline]="false" [readonlyInput]="false" [showIcon]="false"
-                        ngModel #vencimento="ngModel" required></p-calendar>
+                        [inline]="false" [readonlyInput]="false" [showIcon]="true"
+                        ngModel #vencimento="ngModel" required [locale]="pt" showButtonBar="true"></p-calendar>
 
             <app-message [control]="vencimento" error="required"
                          text="Informe uma data de vencimento"></app-message>
@@ -22,7 +22,7 @@
 
           <div class="ui-g-6 ui-md-3 ui-fluid">
             <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
-            <p-calendar dateFormat="dd/mm/yy"></p-calendar>
+            <p-calendar dateFormat="dd/mm/yy" showButtonBar="true" [locale]="pt" [showIcon]="true"></p-calendar>
           </div>
 
           <div class="ui-g-12 ui-md-9 ui-fluid">
