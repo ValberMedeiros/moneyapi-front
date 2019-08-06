@@ -10,10 +10,12 @@
         </div>
         <div class="ui-g-12">
           <label style="display: block;">Vencimento</label>
-          <input type="text" pInputText style="width: 95px;">
+          <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '95px'}"
+            name="dataVencimentoInicio" [(ngModel)]="dataVencimentoInicio" [showIcon]="true" showButtonBar="true" [locale]="pt"></p-calendar>
 
           <label style="margin: 0px 3px">até</label>
-          <input type="text" pInputText style="width: 95px;">
+          <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '95px'}"
+            name="dataVencimentoFim" [(ngModel)]="dataVencimentoFim" [showIcon]="true" showButtonBar="true" [locale]="pt"></p-calendar>
         </div>
         <div class="ui-g-12">
           <button pButton type="submit" label="Pesquisar"></button>
@@ -46,11 +48,11 @@
               </td>
               <td class="col-data">
                 <span class="ui-column-title">Data de Vencimento</span>
-                {{lancamentos.dataVencimento | date:'dd/MM/y'}}
+                {{lancamentos.dataVencimento | date:'dd-MM-y'}}
               </td>
               <td class="col-data">
                 <span class="ui-column-title">Data de Pagamento</span>
-                {{lancamentos.dataPagamento | date:'dd/MM/y'}}
+                {{lancamentos.dataPagamento | date:'dd-MM-y'}}
               </td>
               <td class="col-valor" [ngStyle]="{ color: lancamentos.tipo === 'DESPESA' ? 'red' : 'blue'}">
                 <span class="ui-column-title" style="color: #404C51">valor</span>
@@ -62,7 +64,9 @@
               </td>
             </tr>
           </ng-template>
-
+          <ng-template pTemplate="emptymessage">
+            Nenhum lançamento encontrado
+          </ng-template>
         </p-table>
 
       </div>
