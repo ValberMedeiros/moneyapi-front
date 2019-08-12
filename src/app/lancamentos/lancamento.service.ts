@@ -3,10 +3,12 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import * as moment from 'moment';
 
-export interface LancamentoFiltro {
+export class LancamentoFiltro {
   descricao: string;
   dataVencimentoInicio: Date;
   dataVencimentoFim: Date;
+  pagina = 0;
+  itensPorPagina = 5;
 }
 
 @Injectable({
@@ -20,8 +22,11 @@ export class LancamentoService {
 
   pesquisar(filtro: LancamentoFiltro): Promise<any> {
 
-    const headers = new HttpHeaders().append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjUxMjI5NTQsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiIwMGJiNjJhYi03YTMwLTRkZjctYTNkOC1kMjU4MWY3ZTdiZWYiLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.PKNTNXUSDNkQIXgZn7V29Zq41UP8mgrJint_g8qCH4Y');
+    const headers = new HttpHeaders().append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjU2NDI2NzEsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiJjMGU3Yzk1Yi00OWU0LTQ0NWEtYTVmYi05MmQ4ZjE4NDA2NjEiLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.nbRbGhl8qpSvZD5s9Efli9uyGV7yK1f6wGCi74bP16E');
     let params = new HttpParams();
+
+    params = params.set('page', filtro.pagina.toString());
+    params = params.set('size', filtro.itensPorPagina.toString());
 
     if (filtro.descricao) {
       params = params.set('descricao', filtro.descricao);
@@ -37,7 +42,14 @@ export class LancamentoService {
 
     return this.http.get(`${this.lancamentosUrl}?resumo`, { headers, params })
       .toPromise()
-      .then(response => response['content']);
+      .then(response => {
+        const lancamentos = response['content']
+        const resultado = {
+          lancamentos,
+          total: response['totalElements']
+        }
+        return resultado;
+      });
   }
 
 }
