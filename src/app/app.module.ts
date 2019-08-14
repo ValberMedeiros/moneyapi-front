@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +12,11 @@ import {CoreModule} from './core/core.module';
 import {HttpClientModule} from '@angular/common/http';
 import {LancamentoService} from './lancamentos/lancamento.service';
 import {PessoasService} from './pessoas/pessoas.service';
+import {ToastyModule} from 'ng2-toasty';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -20,6 +27,8 @@ import {PessoasService} from './pessoas/pessoas.service';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ToastyModule.forRoot(),
+    ConfirmDialogModule,
 
     LancamentosModule,
     PessoasModule,
@@ -27,7 +36,9 @@ import {PessoasService} from './pessoas/pessoas.service';
   ],
   providers: [
     LancamentoService,
-    PessoasService
+    PessoasService,
+    ConfirmationService,
+    {provide: LOCALE_ID, useValue: 'pt-BR'}
   ],
   bootstrap: [AppComponent]
 })

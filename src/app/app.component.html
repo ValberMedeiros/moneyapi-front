@@ -1,2 +1,14 @@
 <app-navbar></app-navbar>
-<app-pessoas-pesquisa></app-pessoas-pesquisa>
+<app-lancamentos-pesquisa></app-lancamentos-pesquisa>
+
+<ng2-toasty></ng2-toasty>
+<p-confirmDialog header="Confirmação" icon="pi pi-question-circle" #confirmacao>
+  <p-footer>
+    <button pButton label="Sim" icon="pi pi-check" type="button"
+            (click)="confirmacao.accept()"
+    ></button>
+    <button pButton label="Não" icon="pi pi-times" type="button"
+            (click)="confirmacao.reject()"
+    ></button>
+  </p-footer>
+</p-confirmDialog>
