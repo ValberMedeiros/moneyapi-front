@@ -56,4 +56,14 @@ export class PessoasService {
       .toPromise()
       .then(response => response['content'])
   }
+
+  mudarStatus(id: number, status: boolean): Promise<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjU5Mjc5OTAsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiJjNWYyNDBlYS01ZWI0LTRjNjAtYjIzOS0zNzhmNzkxMDc1NmUiLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.ZBGZxEO1l8AlD_vdWGEGdf0Sj0BQFdBNoBrwz2hs2fI');
+    headers = headers.append('Content-Type', 'application/json');
+
+    return this.http.put(`${this.pessoasUrl}/${id}/ativo`, status, {headers})
+      .toPromise()
+      .then( response => response);
+  }
 }
