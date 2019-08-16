@@ -59,17 +59,17 @@ export class PessoasPesquisaComponent implements OnInit {
       .catch(erro => this.errorHandler.handle(erro));
   }
 
-  mudarStatus(id: number, status: boolean) {
+  mudarStatus(pessoa: any): void {
 
-    if (status) {
-      status = false;
-    } else {
-      status = true;
-    }
-    this.pessoasService.mudarStatus(id, status)
+    const novoStatus = !pessoa.ativo;
+
+    this.pessoasService.mudarStatus(pessoa.id, novoStatus)
       .then(() => {
-        this.toasty.success('Status modificado com sucesso!');
-        this.pesquisar();
+        const acao = novoStatus ? 'ativada' : 'desativada';
+
+        pessoa.ativo = novoStatus;
+
+        this.toasty.success(`Pessoa ${acao} com sucesso!`);
       });
   }
 }
