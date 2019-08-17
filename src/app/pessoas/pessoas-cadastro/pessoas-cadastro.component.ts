@@ -4,6 +4,7 @@ import {PessoasService} from "../pessoas.service";
 import {ErrorHandlerService} from "../../core/error-handler.service";
 import {ToastyService} from "ng2-toasty";
 import {FormControl} from "@angular/forms";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-pessoas-cadastro',
@@ -17,10 +18,12 @@ export class PessoasCadastroComponent implements OnInit {
   constructor(
     private pessoaService: PessoasService,
     private errorHandle: ErrorHandlerService,
-    private toasty: ToastyService
+    private toasty: ToastyService,
+    private title: Title
   ) { }
 
   ngOnInit() {
+    this.title.setTitle('Cadastro de pessoas');
   }
 
   salvar(form: FormControl) {

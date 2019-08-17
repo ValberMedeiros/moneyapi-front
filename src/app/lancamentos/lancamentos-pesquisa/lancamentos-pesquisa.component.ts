@@ -3,6 +3,7 @@ import {LancamentoFiltro, LancamentoService} from '../lancamento.service';
 import {ConfirmationService, LazyLoadEvent} from 'primeng/api';
 import {ToastyService} from "ng2-toasty";
 import {ErrorHandlerService} from "../../core/error-handler.service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -21,7 +22,8 @@ export class LancamentosPesquisaComponent implements OnInit {
     private lancamentoService: LancamentoService,
     private toasty: ToastyService,
     private confimartion: ConfirmationService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private title: Title
     ) {}
 
   ngOnInit(): void {
@@ -38,6 +40,8 @@ export class LancamentosPesquisaComponent implements OnInit {
       dateFormat: 'dd/MM/yy',
       weekHeader: 'Semana'
     };
+
+    this.title.setTitle('Pesquisa de lançamentos');
   }
 
   pesquisar(pagina = 0) {

@@ -7,6 +7,7 @@ import {FormControl} from "@angular/forms";
 import {LancamentoService} from "../lancamento.service";
 import {ToastyService} from "ng2-toasty";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -22,7 +23,8 @@ export class LancamentoCadastroComponent implements OnInit {
     private lancamentoService: LancamentoService,
     private toasty: ToastyService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private title: Title
   ) { }
 
   pt: any;
@@ -57,6 +59,8 @@ export class LancamentoCadastroComponent implements OnInit {
     if (codigoLancamento) {
       this.carregarLancamento(codigoLancamento);
     }
+
+    this.title.setTitle('Cadastro de lançamentos');
   }
 
   get editando() {
@@ -67,6 +71,7 @@ export class LancamentoCadastroComponent implements OnInit {
     this.lancamentoService.buscarPeloCodigo(codigo)
       .then(lancamento => {
         this.lancamento = lancamento;
+        this.atualizarTituloEdicao();
       })
       .catch(error => this.errorHandler.handle(error));
   }
@@ -90,6 +95,7 @@ export class LancamentoCadastroComponent implements OnInit {
   salvar(form: FormControl) {
     if (this.editando) {
       this.atualizarLancamento(form);
+      this.atualizarTituloEdicao();
     } else {
       this.adicinarLancamento(form);
     }
@@ -123,5 +129,9 @@ export class LancamentoCadastroComponent implements OnInit {
     }.bind(this), 1);
 
     this.router.navigate(['/lancamentos/novo']);
+  }
+
+  atualizarTituloEdicao() {
+    this.title.setTitle(`Edição de lançamento: ${this.lancamento.descricao}`);
   }
 }
