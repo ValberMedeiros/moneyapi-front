@@ -14,9 +14,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 import {PessoasCadastroComponent} from './pessoas-cadastro/pessoas-cadastro.component';
 import {PessoasPesquisaComponent} from './pessoas-pesquisa/pessoas-pesquisa.component';
-import {MessageComponent} from '../shared/message/message.component';
 import {SharedModule} from '../shared/shared.module';
-import {RouterModule} from "@angular/router";
+import {PessoasRoutingModule} from "./pessoas-routing.module";
 
 
 
@@ -40,7 +39,7 @@ import {RouterModule} from "@angular/router";
     DropdownModule,
     InputMaskModule,
     SharedModule,
-    RouterModule
+    PessoasRoutingModule
   ],
   exports: [ ]
 })
