@@ -16,6 +16,7 @@ import {PessoasCadastroComponent} from './pessoas-cadastro/pessoas-cadastro.comp
 import {PessoasPesquisaComponent} from './pessoas-pesquisa/pessoas-pesquisa.component';
 import {MessageComponent} from '../shared/message/message.component';
 import {SharedModule} from '../shared/shared.module';
+import {RouterModule} from "@angular/router";
 
 
 
@@ -38,7 +39,8 @@ import {SharedModule} from '../shared/shared.module';
     SelectButtonModule,
     DropdownModule,
     InputMaskModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ],
   exports: [
     PessoasPesquisaComponent,

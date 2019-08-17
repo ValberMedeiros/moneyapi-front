@@ -17,6 +17,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { InputMaskModule } from 'primeng/inputmask';
 import {SharedModule} from '../shared/shared.module';
 import {MessageComponent} from '../shared/message/message.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {MessageComponent} from '../shared/message/message.component';
     DropdownModule,
     InputMaskModule,
     CurrencyMaskModule,
-    SharedModule
+    SharedModule,
+    RouterModule
   ]
 })
 export class LancamentosModule { }

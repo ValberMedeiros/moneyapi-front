@@ -3,7 +3,7 @@
 
         <div class="ui-g">
             <div class="ui-g-12">
-                <h1>Novo Lançamento</h1>
+                <h1> {{editando ? 'Edição de ' : 'Novo'}} Lançamento</h1>
             </div>
 
           <div class="ui-g-12">
@@ -67,7 +67,7 @@
             <div class="ui-g-12">
                 <button pButton type="submit" label="Salvar" [disabled]="f.invalid"></button>
                 <button pButton type="button" label="Novo" class="ui-button-secondary" style="margin: 0px 5px"></button>
-                <a href="javascript:;">Voltar para a pesquisa</a>
+                <a routerLink="/lancamentos">Voltar para a pesquisa</a>
             </div>
         </div>
 
