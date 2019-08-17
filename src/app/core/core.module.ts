@@ -7,12 +7,14 @@ import {ConfirmationService, ConfirmDialogModule} from 'primeng/primeng';
 import {LancamentoService} from '../lancamentos/lancamento.service';
 import {PessoasService} from '../pessoas/pessoas.service';
 import {RouterModule} from "@angular/router";
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
 
 
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    PaginaNaoEncontradaComponent
   ],
   imports: [
     CommonModule,
