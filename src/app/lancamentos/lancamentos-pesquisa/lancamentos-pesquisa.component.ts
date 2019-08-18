@@ -4,6 +4,7 @@ import {ConfirmationService, LazyLoadEvent} from 'primeng/api';
 import {ToastyService} from "ng2-toasty";
 import {ErrorHandlerService} from "../../core/error-handler.service";
 import {Title} from "@angular/platform-browser";
+import {AuthService} from "../../seguranca/auth.service";
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -23,7 +24,8 @@ export class LancamentosPesquisaComponent implements OnInit {
     private toasty: ToastyService,
     private confimartion: ConfirmationService,
     private errorHandler: ErrorHandlerService,
-    private title: Title
+    private title: Title,
+    private authService: AuthService
     ) {}
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class LancamentosPesquisaComponent implements OnInit {
       dateFormat: 'dd/MM/yy',
       weekHeader: 'Semana'
     };
-
+    console.log(this.authService.jwtPayLoad.authorities)
     this.title.setTitle('Pesquisa de lançamentos');
   }
 
@@ -59,7 +61,7 @@ export class LancamentosPesquisaComponent implements OnInit {
     this.pesquisar(pagina);
   }
 
-  confirmarExclusao(lancamento: any){
+  confirmarExclusao(lancamento: any) {
     this.confimartion.confirm({
       message: 'Tem certeza que deseja excluir?',
       accept: () => {
@@ -68,14 +70,15 @@ export class LancamentosPesquisaComponent implements OnInit {
     });
   }
 
-  exlcuir( lancamento: any ){
+  exlcuir( lancamento: any ) {
     this.lancamentoService.excluir(lancamento.codigo)
       .then(() => {
         this.tabelaLancamentos.reset();
-
         this.toasty.success('Lençamento excluído com sucesso!');
       })
-      .catch(erro => this.errorHandler.handle(erro));
+      .catch(error => {
+        this.errorHandler.handle(error);
+      });
   }
 
 }

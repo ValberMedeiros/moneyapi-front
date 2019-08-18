@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {FormControl} from "@angular/forms";
 import {Pessoa} from "../core/model";
 
 export class PessoaFilter {
@@ -21,7 +20,6 @@ export class PessoasService {
   constructor(private http: HttpClient) { }
 
   pesquisar(filtro: PessoaFilter): Promise<any> {
-    const headers = new HttpHeaders().append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjYwODY1NDAsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiI5YThlN2E0OC04YTY5LTRjYTctYWIwYy04YzJkN2M0MDRjYjMiLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.N5Jfp4CT3fY3NSneTODTqgVE_CTDmXxSPp2YqNiQm2s');
     let params = new HttpParams();
 
     params = params.set('page', filtro.pagina.toString());
@@ -31,7 +29,7 @@ export class PessoasService {
       params = params.set('nome', filtro.nome);
     }
 
-    return this.http.get(this.pessoasUrl , { headers, params })
+    return this.http.get(this.pessoasUrl , { params })
       .toPromise()
       .then(response => {
         const pessoas = response['content']
@@ -44,24 +42,19 @@ export class PessoasService {
   }
 
   excluir(id: number): Promise<void> {
-    const headers = new HttpHeaders().append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjYwODY1NDAsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiI5YThlN2E0OC04YTY5LTRjYTctYWIwYy04YzJkN2M0MDRjYjMiLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.N5Jfp4CT3fY3NSneTODTqgVE_CTDmXxSPp2YqNiQm2s');
-
-    return this.http.delete(`${this.pessoasUrl}/${id}`, { headers })
+    return this.http.delete(`${this.pessoasUrl}/${id}` )
       .toPromise()
       .then(response => null);
   }
 
   listarTodas(): Promise<any>{
-    const headers = new HttpHeaders().append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjYwODY1NDAsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiI5YThlN2E0OC04YTY5LTRjYTctYWIwYy04YzJkN2M0MDRjYjMiLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.N5Jfp4CT3fY3NSneTODTqgVE_CTDmXxSPp2YqNiQm2s');
-
-    return this.http.get( this.pessoasUrl, { headers })
+    return this.http.get( this.pessoasUrl)
       .toPromise()
       .then(response => response['content'])
   }
 
   mudarStatus(id: number, ativo: boolean): Promise<any> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjYwODY1NDAsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiI5YThlN2E0OC04YTY5LTRjYTctYWIwYy04YzJkN2M0MDRjYjMiLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.N5Jfp4CT3fY3NSneTODTqgVE_CTDmXxSPp2YqNiQm2s');
     headers = headers.append('Content-Type', 'application/json');
 
     return this.http.put(`${this.pessoasUrl}/${id}/ativo`, ativo, {headers})
@@ -71,7 +64,6 @@ export class PessoasService {
 
   adicionar(pessoa: Pessoa): Promise<Pessoa> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjYwODY1NDAsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiI5YThlN2E0OC04YTY5LTRjYTctYWIwYy04YzJkN2M0MDRjYjMiLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.N5Jfp4CT3fY3NSneTODTqgVE_CTDmXxSPp2YqNiQm2s');
     headers = headers.append('Content-Type', 'application/json');
 
     return this.http.post(this.pessoasUrl, pessoa, { headers })
@@ -81,7 +73,6 @@ export class PessoasService {
 
   buscarPeloId(id: number): Promise<any> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjYwODY1NDAsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiI5YThlN2E0OC04YTY5LTRjYTctYWIwYy04YzJkN2M0MDRjYjMiLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.N5Jfp4CT3fY3NSneTODTqgVE_CTDmXxSPp2YqNiQm2s');
     headers = headers.append('Content-Type', 'application/json');
 
     return this.http.get(`${this.pessoasUrl}/${id}`, { headers })
@@ -91,7 +82,6 @@ export class PessoasService {
 
   atualizar(pessoa: Pessoa): Promise<Pessoa> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjYwODY1NDAsInVzZXJfbmFtZSI6ImFkbWluQGFsZ2Ftb25leS5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0NBREFTVFJBUl9DQVRFR09SSUEiLCJST0xFX1BFU1FVSVNBUl9QRVNTT0EiLCJST0xFX1JFTU9WRVJfUEVTU09BIiwiUk9MRV9DQURBU1RSQVJfTEFOQ0FNRU5UTyIsIlJPTEVfUEVTUVVJU0FSX0xBTkNBTUVOVE8iLCJST0xFX1JFTU9WRVJfTEFOQ0FNRU5UTyIsIlJPTEVfQ0FEQVNUUkFSX1BFU1NPQSIsIlJPTEVfUEVTUVVJU0FSX0NBVEVHT1JJQSJdLCJqdGkiOiI5YThlN2E0OC04YTY5LTRjYTctYWIwYy04YzJkN2M0MDRjYjMiLCJjbGllbnRfaWQiOiJhbmd1bGFyIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.N5Jfp4CT3fY3NSneTODTqgVE_CTDmXxSPp2YqNiQm2s');
     headers = headers.append('Content-Type', 'application/json');
 
     return this.http.put(`${this.pessoasUrl}/${pessoa.id}`, pessoa, { headers })

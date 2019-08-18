@@ -4,6 +4,7 @@ import {ConfirmationService, LazyLoadEvent} from 'primeng/api';
 import {ToastyService} from "ng2-toasty";
 import {ErrorHandlerService} from "../../core/error-handler.service";
 import {Title} from "@angular/platform-browser";
+import {AuthService} from "../../seguranca/auth.service";
 
 @Component({
   selector: 'app-pessoas-pesquisa',
@@ -26,7 +27,8 @@ export class PessoasPesquisaComponent implements OnInit {
     private toasty: ToastyService,
     private confimartion: ConfirmationService,
     private errorHandler: ErrorHandlerService,
-    private title: Title
+    private title: Title,
+    private authService: AuthService
     ) { }
 
   pesquisar(pagina = 0) {
@@ -66,6 +68,7 @@ export class PessoasPesquisaComponent implements OnInit {
   mudarStatus(pessoa: any): void {
 
     const novoStatus = !pessoa.ativo;
+    console.log(pessoa);
 
     this.pessoasService.mudarStatus(pessoa.id, novoStatus)
       .then(() => {

@@ -10,6 +10,7 @@ import {LancamentosModule} from './lancamentos/lancamentos.module';
 import {PessoasModule} from './pessoas/pessoas.module';
 import {CoreModule} from './core/core.module';
 import {HttpClientModule} from '@angular/common/http';
+import {SegurancaModule} from "./seguranca/seguranca.module";
 
 registerLocaleData(localePt);
 
@@ -27,6 +28,7 @@ registerLocaleData(localePt);
     LancamentosModule,
     PessoasModule,
     CoreModule,
+    SegurancaModule,
     AppRoutingModule,
   ],
   providers: [
